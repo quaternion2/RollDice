@@ -68,7 +68,7 @@ public class EvalPostfix {
                             values.add(getRandom(b.getValue()));
                         }
                         values.sort(Comparator.naturalOrder());
-                        Opperand oppValues = new Opperand(values);
+                        Opperand oppValues = new Opperand(values, Math.round(b.getValue()));
                         System.out.println(oppValues);
                         opperands.push(oppValues);
                         break;
@@ -79,7 +79,7 @@ public class EvalPostfix {
                             List<Float> list = a.getValues();
                             int nToRemove = Math.round(b.getValue());
                             this.removeFirstX(list, nToRemove);
-                            opperands.push(new Opperand(list));
+                            opperands.push(new Opperand(list, Math.round(b.getValue())));
                             //c.compareTo(factor)
                         }
                         break;
@@ -90,7 +90,18 @@ public class EvalPostfix {
                             List<Float> list = a.getValues();
                             int nToRemove = Math.round(b.getValue());
                             this.removeLastX(list, nToRemove);
-                            opperands.push(new Opperand(list));
+                            opperands.push(new Opperand(list, Math.round(b.getValue())));
+                        }
+                        break;
+                    case "r":
+                        if (a.getType() != Opperand.Type.VECTOR) {
+                            throw new Exception("Opperator 'r' only works after a 'd' opperator.");
+                        } else {//good
+                            List<Float> list = a.getValues();
+                            int limitValue = Math.round(b.getValue());
+                            List<Float> rerolled = this.rerollByLimit(list, limitValue, a.getFaces());
+                            opperands.push(new Opperand(rerolled, a.getFaces()));
+                            System.out.println("ReRolled:" + rerolled);
                         }
                         break;
                 }
@@ -142,5 +153,21 @@ public class EvalPostfix {
             }
         }
         return list;
+    }
+
+    //This method is used to reroll values under a certain limit, ie
+    //6d6r2, will roll six six-sided dice, then examine the returned values
+    //if will then reroll all the values that are 2 or lower, keeping the new
+    //rolls (even if they are still lower than 2
+    private List<Float> rerollByLimit(List<Float> list, int limitValue, int dieFaces) {
+        List<Float> filtered = new ArrayList();
+        for(Float value : list){
+            if(value > limitValue){
+                filtered.add(value);
+            }else{
+                filtered.add(getRandom(dieFaces));
+            }
+        }
+        return filtered;
     }
 }

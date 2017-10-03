@@ -40,6 +40,5 @@ public class Main {
             //Logger.getLogger(input)
             System.out.println("Exception: " + ex.getMessage());
         }
-        //}
     }
 }

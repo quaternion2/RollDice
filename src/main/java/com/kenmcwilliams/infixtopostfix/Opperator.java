@@ -50,6 +50,7 @@ public class Opperator extends Token{
                 break;
             case 'l'://strip Lowest from opperand (which holds a list)
             case 'h'://strip Highest from opperand (which holds a list)
+            case 'r'://strip Highest from opperand (which holds a list)
                 this.precidence = 2;
                 break;
             case 'd'://dice rolling sum opperator 3d6 generate 3 numbers in the range of 1-6

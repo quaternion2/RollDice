@@ -15,6 +15,13 @@ import java.util.List;
 public class Opperand extends Token {
 
     /**
+     * @return the faces
+     */
+    public Integer getFaces() {
+        return faces;
+    }
+
+    /**
      * @return the type
      */
     public Type getType() {
@@ -35,14 +42,16 @@ public class Opperand extends Token {
     private Float value;
     private List<Float> values;
     private Type type;
+    private Integer faces;
 
     public Opperand(Float value) {
         //this();
         this.setValue(value);//TODO: Review
     }
 
-    public Opperand(List<Float> values) {
+    public Opperand(List<Float> values, Integer faces) {
         //this();
+        this.faces = faces;
         this.setValues(values);//TODO: Review
     }
 
