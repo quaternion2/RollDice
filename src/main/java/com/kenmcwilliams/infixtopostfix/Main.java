@@ -16,8 +16,8 @@ package com.kenmcwilliams.infixtopostfix;
  */
 public class Main {
 
-    InfixToPostfix ifToPf = new InfixToPostfix();
-    EvalPostfix eval = new EvalPostfix();
+//    InfixToPostfix ifToPf = new InfixToPostfix();
+//    EvalPostfix eval = new EvalPostfix();
     StringExecuter executer = new StringExecuter();
 
     public static void main(String[] args) {
